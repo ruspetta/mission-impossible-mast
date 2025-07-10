@@ -176,7 +176,7 @@
       if (Array.isArray(data) && data.length > 0) {
         const label = data[0].label;
 
-        if (label && label !== lastLabel && /^\d{6}$/.test(label)) {
+        if (label && label !== lastLabel && /^[a-zA-Z0-9]{6}$/.test(label)) {
           lastLabel = label;
           typeSlowly(label);
         }
