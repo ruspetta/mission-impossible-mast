@@ -167,6 +167,7 @@
       if (Array.isArray(data) && data.length > 0) {
         const label = data[0].label;
         if (typeof label === 'string' && /^\d{6}$/.test(label)) {
+          console.log('Label ricevuta:', label);
           typeSlowly(label);
         }
       }
