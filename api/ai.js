@@ -8,7 +8,7 @@ const supabase = createClient(
 export default async function handler(req, res) {
   try {
     const { data, error } = await supabase
-      .from('predict_texts') // ✅ nome tabella corretto
+      .from('predict_texts') // 👈 il nome corretto!
       .select('*')
       .order('timestamp', { ascending: false });
 
