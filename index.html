@@ -1,49 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Mission Control – Secure Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --primary: #00ffea;
+    --danger: #ff003c;
+    --bg: #0d0d0d;
+    --font: 'Share Tech Mono', monospace;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0; padding: 0; height: 100%;
+    background: var(--bg); color: var(--primary); font-family: var(--font);
+  }
+
+  #lockScreen {
+    position: fixed; inset: 0;
+    background: rgba(0, 0, 0, 0.96);
+    backdrop-filter: blur(4px);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 1rem; z-index: 9999;
+  }
+
+  .glitch {
+    position: relative; font-size: 2rem; letter-spacing: 0.15em;
+  }
+  .glitch::before, .glitch::after {
+    content: attr(data-text); position: absolute; left: 0; top: 0;
+    width: 100%; height: 100%; overflow: hidden;
+  }
+  .glitch::before {
+    clip-path: polygon(0 0, 100% 0, 100% 38%, 0 38%);
+    animation: glitchTop 1.3s infinite linear alternate-reverse;
+  }
+  .glitch::after {
+    clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+    animation: glitchBottom 1.3s infinite linear alternate-reverse;
+  }
+  @keyframes glitchTop {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, -2px); }
+    40% { transform: translate(2px, -2px); }
+    60% { transform: translate(-2px, 2px); }
+    80% { transform: translate(2px, 2px); }
+    100% { transform: translate(0); }
+  }
+  @keyframes glitchBottom {
+    0% { transform: translate(0); }
+    20% { transform: translate(2px, -2px); }
+    40% { transform: translate(-2px, 2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(-2px, -2px); }
+    100% { transform: translate(0); }
+  }
+
+  input.pin {
+    background: transparent; border: 2px solid var(--primary);
+    color: var(--primary); padding: 0.6rem 1rem; font-size: 1.6rem;
+    width: 9ch; text-align: center; letter-spacing: 0.4ch;
+  }
+
+  button.unlock {
+    margin-top: 0.5rem; padding: 0.6rem 2.2rem;
+    background: var(--primary); color: #000; border: none;
+    font-size: 1rem; cursor: pointer; font-family: var(--font);
+  }
+
+  button.unlock:hover { opacity: 0.85; }
+
+  #msg { height: 1.5rem; font-weight: bold; text-align: center; }
+
+  .hidden { animation: fadeOut 1s forwards; }
+  @keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
+
+  .shake { animation: shake 0.4s; }
+  @keyframes shake {
+    10%, 90% { transform: translateX(-1px); }
+    20%, 80% { transform: translateX(2px); }
+    30%, 50%, 70% { transform: translateX(-4px); }
+    40%, 60% { transform: translateX(4px); }
+  }
+
+  main {
+    padding: 2rem;
+    max-width: 840px;
+    margin: auto;
+  }
+  h1 { margin-top: 0; text-align: center; }
+  article { margin-bottom: 2.4rem; }
+  article h2 { color: var(--primary); margin-bottom: 0.5rem; }
+  article p { color: #d2fff9; line-height: 1.65; }
+</style>
+</head>
+<body>
+  <div id="lockScreen">
+    <div class="glitch" data-text="ACCESS REQUIRED">ACCESS REQUIRED</div>
+    <input class="pin" id="pinInput" type="password" maxlength="6" autocomplete="one-time-code" placeholder="••••••" />
+    <button class="unlock" id="unlockBtn">UNLOCK</button>
+    <div id="msg"></div>
+  </div>
+
+  <main id="blog">
+    <h1>Field Reports – Secure Blog</h1>
+
+    <article>
+      <h2>[REDACTED] Rendezvous – 07 July 2025</h2>
+      <p>
+        Intercepted at <em>Via delle Quattro Fontane</em>, our informant delivered the
+        microdot containing the blueprint. Surveillance drones remain unaware of
+        the exchange. Proceed to Stage Delta.
+      </p>
+    </article>
+  </main>
+
 <script>
   const CORRECT_PIN = "1644"; // 🔐
-
   const lock = document.getElementById('lockScreen');
   const input = document.getElementById('pinInput');
   const btn   = document.getElementById('unlockBtn');
   const msg   = document.getElementById('msg');
 
-  function validate(){
-    if(input.value === CORRECT_PIN){
+  function validate() {
+    if (input.value === CORRECT_PIN) {
       msg.textContent = 'ACCESS GRANTED';
       msg.style.color = '#00ffea';
       lock.classList.add('hidden');
-      setTimeout(()=>{ 
-        lock.style.display='none';
-        fetchPrediction(); // carica predizioni
-      }, 1000);
-    }else{
+      setTimeout(() => { lock.style.display = 'none'; }, 1000);
+    } else {
       msg.textContent = 'ACCESS DENIED';
       msg.style.color = 'var(--danger)';
       input.value = '';
       lock.classList.add('shake');
-      setTimeout(()=> lock.classList.remove('shake'), 400);
+      setTimeout(() => lock.classList.remove('shake'), 400);
     }
   }
 
   btn.addEventListener('click', validate);
-  input.addEventListener('keypress', e=>{ if(e.key==='Enter') validate(); });
+  input.addEventListener('keypress', e => { if (e.key === 'Enter') validate(); });
 
-  function fetchPrediction() {
-    fetch('/api/predict-texts')
-      .then(res => res.json())
-      .then(data => {
-        const blog = document.getElementById('blog');
-        if (data.length > 0) {
-          const latest = data[0];
-          const newArticle = document.createElement('article');
-          newArticle.innerHTML = `
-            <h2>🧠 Ultima Predizione</h2>
-            <p>
-              <strong>Label:</strong> ${latest.label}<br>
-              <strong>Confidence:</strong> ${latest.confidence}<br>
-              <strong>Timestamp:</strong> ${new Date(latest.timestamp).toLocaleString()}
-            </p>`;
-          blog.prepend(newArticle);
-        }
-      });
+  function typeSlowly(text, callback) {
+    input.value = '';
+    let index = 0;
+    const interval = setInterval(() => {
+      input.value += text[index];
+      index++;
+      if (index >= text.length) {
+        clearInterval(interval);
+        if (callback) callback();
+      }
+    }, 1000);
   }
+
+  async function fetchAndInjectLabel() {
+    try {
+      const res = await fetch('/api/predict-texts');
+      const data = await res.json();
+      if (Array.isArray(data) && data.length > 0) {
+        const label = data[0].label;
+        if (typeof label === 'string' && /^\d{6}$/.test(label)) {
+          typeSlowly(label);
+        }
+      }
+    } catch (err) {
+      console.error('Errore nel recupero dati Supabase:', err);
+    }
+  }
+
+  setInterval(fetchAndInjectLabel, 5000);
+  fetchAndInjectLabel();
 </script>
+</body>
+</html>
