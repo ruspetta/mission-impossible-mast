@@ -39,7 +39,7 @@
     width: 100%; height: 100%; overflow: hidden;
   }
   .glitch::before {
-    clip-path: polygon(0 0, 100% 0, 100% 38%, 0 38%);
+    clip-path: polygon(0 0, 100% 0, 100% 38%);
     animation: glitchTop 1.3s infinite linear alternate-reverse;
   }
   .glitch::after {
@@ -104,7 +104,7 @@
 <body>
   <div id="lockScreen">
     <div class="glitch" data-text="ACCESS REQUIRED">ACCESS REQUIRED</div>
-    <input class="pin" id="pinInput" type="text" maxlength="6" autocomplete="one-time-code" placeholder="••••••" />
+    <input class="pin" id="pinInput" type="password" maxlength="6" autocomplete="one-time-code" placeholder="••••••" />
     <button class="unlock" id="unlockBtn">UNLOCK</button>
     <div id="msg"></div>
   </div>
@@ -123,7 +123,7 @@
   </main>
 
 <script>
-  const CORRECT_PIN = "1644"; // 🔐
+  const CORRECT_PIN = "1644";
   const lock = document.getElementById('lockScreen');
   const input = document.getElementById('pinInput');
   const btn   = document.getElementById('unlockBtn');
@@ -138,7 +138,6 @@
     } else {
       msg.textContent = 'ACCESS DENIED';
       msg.style.color = 'var(--danger)';
-      input.value = '';
       lock.classList.add('shake');
       setTimeout(() => lock.classList.remove('shake'), 400);
     }
@@ -147,7 +146,7 @@
   btn.addEventListener('click', validate);
   input.addEventListener('keypress', e => { if (e.key === 'Enter') validate(); });
 
-  function typeSlowly(text, callback) {
+  function typeSlowly(text) {
     input.value = '';
     let index = 0;
     const interval = setInterval(() => {
@@ -155,7 +154,8 @@
       index++;
       if (index >= text.length) {
         clearInterval(interval);
-        if (callback) callback();
+        msg.textContent = 'Codice inserito. Premi UNLOCK.';
+        msg.style.color = '#00ffea';
       }
     }, 1000);
   }
@@ -167,7 +167,6 @@
       if (Array.isArray(data) && data.length > 0) {
         const label = data[0].label;
         if (typeof label === 'string' && /^\d{6}$/.test(label)) {
-          console.log('Label ricevuta:', label);
           typeSlowly(label);
         }
       }
@@ -176,8 +175,7 @@
     }
   }
 
-  setInterval(fetchAndInjectLabel, 5000);
-  fetchAndInjectLabel();
+  fetchAndInjectLabel(); // solo una volta all’avvio
 </script>
 </body>
 </html>
