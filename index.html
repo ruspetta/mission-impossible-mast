@@ -170,7 +170,7 @@
     if (isTyping) return;
 
     try {
-      const res = await fetch('/api/predict-texts');
+      const res = await fetch('/ai');
       const data = await res.json();
 
       if (Array.isArray(data) && data.length > 0) {
