@@ -7,14 +7,22 @@ const supabase = createClient(
 );
 
 export default async function handler(req, res) {
-  const { data, error } = await supabase
-    .from('predict_texts')
-    .select('*')
-    .order('timestamp', { ascending: false });
-
-  if (error) {
-    return res.status(500).json({ error: 'Errore Supabase' });
+  if (!process.env.SUPABASE_URL || !process.env.SUPABASE_KEY) {
+    return res.status(500).json({ error: 'Variabili Supabase non impostate' });
   }
 
-  res.status(200).json(data);
+  try {
+    const { data, error } = await supabase
+      .from('predict_text')
+      .select('*')
+      .order('timestamp', { ascending: false });
+
+    if (error) {
+      return res.status(500).json({ error: error.message });
+    }
+
+    res.status(200).json(data);
+  } catch (err) {
+    return res.status(500).json({ error: 'Errore interno' });
+  }
 }
