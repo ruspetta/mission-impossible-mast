@@ -129,6 +129,9 @@
   const btn   = document.getElementById('unlockBtn');
   const msg   = document.getElementById('msg');
 
+  let isTyping = false;
+  let lastLabel = null;
+
   function validate() {
     if (input.value === CORRECT_PIN) {
       msg.textContent = 'ACCESS GRANTED';
@@ -148,7 +151,9 @@
 
   function typeSlowly(text) {
     input.value = '';
+    isTyping = true;
     let index = 0;
+
     const interval = setInterval(() => {
       input.value += text[index];
       index++;
@@ -156,26 +161,35 @@
         clearInterval(interval);
         msg.textContent = 'Codice inserito. Premi UNLOCK.';
         msg.style.color = '#00ffea';
+        isTyping = false;
       }
     }, 1000);
   }
 
-  async function fetchAndInjectLabel() {
+  async function fetchLabelFromDB() {
+    if (isTyping) return;
+
     try {
       const res = await fetch('/api/predict-texts');
       const data = await res.json();
+
       if (Array.isArray(data) && data.length > 0) {
         const label = data[0].label;
-        if (typeof label === 'string' && /^\d{6}$/.test(label)) {
+
+        if (label && label !== lastLabel && /^\d{6}$/.test(label)) {
+          lastLabel = label;
           typeSlowly(label);
         }
       }
     } catch (err) {
-      console.error('Errore nel recupero dati Supabase:', err);
+      console.error('Errore fetch:', err);
     }
   }
 
-  fetchAndInjectLabel(); // solo una volta all’avvio
+  // Avvia subito e ogni 5 secondi
+  fetchLabelFromDB();
+  setInterval(fetchLabelFromDB, 5000);
 </script>
+
 </body>
 </html>
