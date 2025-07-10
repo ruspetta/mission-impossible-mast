@@ -13,7 +13,7 @@ export default async function handler(req, res) {
 
   try {
     const { data, error } = await supabase
-      .from('predict_text')
+      .from('predict_texts')
       .select('*')
       .order('timestamp', { ascending: false });
 
