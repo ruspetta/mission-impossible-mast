@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi Siamo - MISSION IMPOSSIBLE PETOI</title>
+    <style>
+        /* --- Stile Generale --- */
+        body {
+            background-color: #0d1a2f;
+            color: #63a9d5;
+            font-family: 'Share Tech Mono', 'Lucida Console', monospace;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            /* Effetto scanlines per look retro */
+            background-image: linear-gradient(rgba(0,0,0,0.5) 50%, transparent 50%);
+            background-size: 100% 4px;
+        }
+
+        /* --- Contenitore Principale --- */
+        .container {
+            width: 100%;
+            max-width: 900px;
+            border: 5px solid #2a5d84;
+            background-color: #040c1a;
+            padding: 40px; /* Ridotto per fare spazio ai contenuti */
+            box-shadow: 0 0 20px rgba(127, 205, 255, 0.2);
+            border-radius: 5px;
+        }
+
+        /* --- Titolo --- */
+        h1 {
+            background-color: #02060e;
+            color: #9ac8de;
+            text-align: center;
+            padding: 10px;
+            font-size: 1.8em;
+            letter-spacing: 5px;
+            margin: 0 0 40px 0;
+            border: 1px solid #2a5d84;
+            text-shadow: 0 0 5px #cceeff;
+        }
+
+        /* --- Menu di Navigazione --- */
+        nav ul {
+            display: flex;
+            justify-content: space-around;
+            padding: 0;
+            margin: 0 0 40px 0; /* Aggiunto margine inferiore */
+            list-style-type: none;
+        }
+
+        nav li {
+            text-align: center;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            display: block;
+        }
+        
+        .menu-logo {
+            width: 120px;
+            height: 120px;
+            background-color: #1a3a5f;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #0c1a2d;
+            border: 4px solid #3c6c94;
+            margin: 0 auto 10px auto;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.5);
+            text-shadow: 1px 1px 1px #6aace7, -1px -1px 1px #0a1f3a;
+        }
+
+        .menu-label {
+            background-color: #02060e;
+            color: #80a3b8;
+            padding: 8px 15px;
+            border: 2px solid #3c6c94;
+            letter-spacing: 2px;
+            font-size: 0.9em;
+            width: 120px;
+            margin: 0 auto;
+        }
+        
+        /* Stile per l'elemento attivo */
+        nav li.active .menu-logo {
+            border-color: #67bfc6;
+            background-color: #24588a;
+            color: #0f2741;
+        }
+        
+        nav li.active .menu-label {
+            border: 2px solid #4edce6;
+            color: #e1ffff;
+            box-shadow: 0 0 10px rgba(78, 220, 230, 0.5);
+        }
+
+        /* --- Sezione Contenuto --- */
+        .content-section {
+            padding: 20px;
+            border: 1px solid #2a5d84;
+            background-color: #02060e;
+            text-align: left;
+        }
+        .content-section h2 {
+            color: #9ac8de;
+            letter-spacing: 3px;
+            text-shadow: 0 0 5px #cceeff;
+        }
+        .content-section p {
+            line-height: 1.6;
+            color: #80a3b8;
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+        <h1>MISSION IMPOSSIBLE PETOI</h1>
+        
+        <nav>
+            <ul>
+                <li class="active">
+                    <a href="chi-siamo.html">
+                        <div class="menu-logo">MAST.</div>
+                        <div class="menu-label">chi siamo</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="obiettivi.html">
+                        <div class="menu-logo">MAST.</div>
+                        <div class="menu-label">obiettivi</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="tecnologie.html">
+                        <div class="menu-logo">MAST.</div>
+                        <div class="menu-label">tecnologie</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="scene-realizzate.html">
+                        <div class="menu-logo">MAST.</div>
+                        <div class="menu-label">scene realizzate</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="collaborazione.html">
+                        <div class="menu-logo">MAST.</div>
+                        <div class="menu-label">collaborazione</div>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="content-section">
+            <h2>CHI SIAMO</h2>
+            <p>Siamo studenti della MAST Summer School 2025, provenienti dalle tre track tematiche focalizzate su tecnologie chiave del futuro:
+   <li>Artificial Intelligence: machine learning, reti neurali, applicazioni industriali                                                                                                               </li>
+   
+   <li>Internet of Things: smart objects, stampa 3D, sensori e prototipazione rapida </li>
+   <li>Cyberworld: cybersecurity e protezione dei sistemi informatici                                                                  </li>
+            </p>
+            <p>
+                Il nostro team è composto da studenti delle tre track:</p>
+
+<button onclick="window.location.href='edo0.jpg';" style="background-color: #02060e; color: #80a3b8; border: 2px solid #3c6c94; padding: 10px; font-size: 1em; cursor: pointer;">
+                    <img src="edoardo.jpg" alt="Edoardo Damiani" style="width: 50px; height: 50px; border-radius: 50%;">
+                    <br>
+	Edoardo Damiani
+	</button> 
+<button onclick="window.location.href='ambra0.jpg';" style="background-color: #02060e; color: #80a3b8; border: 2px solid #3c6c94; padding: 10px; font-size: 1em; cursor: pointer;">
+                    <img src="ambra.jpg" alt="Ambra Grilli" style="width: 50px; height: 50px; border-radius: 50%;">
+                    <br>
+	Ambra Grilli
+	</button> 
+<button onclick="window.location.href='greta0.jpg';" style="background-color: #02060e; color: #80a3b8; border: 2px solid #3c6c94; padding: 10px; font-size: 1em; cursor: pointer;">
+                    <img src="greta.jpg" alt="Greta Guidi" style="width: 50px; height: 50px; border-radius: 50%;">
+                    <br>
+	Greta Guidi
+	</button> 
+<button onclick="window.location.href='mirko0.jpg';" style="background-color: #02060e; color: #80a3b8; border: 2px solid #3c6c94; padding: 10px; font-size: 1em; cursor: pointer;">
+                    <img src="mirko.jpg" alt="Mirko Sclafani" style="width: 50px; height: 50px; border-radius: 50%;">
+                    <br>
+    Mirko Sclafani
+    </button> 
+<button onclick="window.location.href='matteo0.jpg';" style="background-color: #02060e; color: #80a3b8; border: 2px solid #3c6c94; padding: 10px; font-size: 1em; cursor: pointer;">
+                    <img src="matteo.jpg" alt="Matteo Pepe" style="width: 50px; height: 50px; border-radius: 50%;">
+                    <br>
+    Matteo Pepe 
+    </button> 
+<button onclick="window.location.href='ernesto0.jpg';" style="background-color: #02060e; color: #80a3b8; border: 2px solid #3c6c94; padding: 10px; font-size: 1em; cursor: pointer;">
+                    <img src="ernesto.jpg" alt="Ernesto Murador" style="width: 50px; height: 50px; border-radius: 50%;">
+                    <br>
+Ernesto Murador
+    </button> 
+
+
+
+
+
+<p> </p>
+            </p>
+            <p>
+                Abbiamo unito le nostre competenze per affrontare una sfida ambiziosa: ricreare alcune delle scene più iconiche del film "Mission: Impossible" utilizzando il robot Petoi Bittle.
+            </p>
+            <p>
+                Il nostro obiettivo è stato quello di applicare le tecnologie apprese durante la Summer School per realizzare un progetto che unisse creatività, ingegneria e programmazione.
+            </p>
+        </div>
+        <!DOCTYPE html>
+<html lang="it">
+
+</html>
